@@ -1,14 +1,28 @@
+/* Tema claro (padrão) */
 :root {
   --bg: #fafafa;
+  --card: #ffffff;
   --text: #222;
   --muted: #666;
   --accent: #4f46e5;
   --border: #e5e5e5;
 }
 
+/* Tema escuro escolhido no botão */
+:root[data-theme="dark"] {
+  --bg: #111;
+  --card: #1a1a1a;
+  --text: #eee;
+  --muted: #999;
+  --accent: #a5b4fc;
+  --border: #2a2a2a;
+}
+
+/* Sem escolha no botão: segue o tema do sistema */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #111;
+    --card: #1a1a1a;
     --text: #eee;
     --muted: #999;
     --accent: #a5b4fc;
@@ -56,19 +70,28 @@ nav ul {
   list-style: none;
 }
 
+nav li {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  transition: border-color 0.15s;
+}
+
+nav li:hover,
+nav li:focus-within {
+  border-color: var(--accent);
+}
+
 nav a {
   display: block;
   padding: 0.75rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 0.5rem;
   color: var(--text);
   text-decoration: none;
-  transition: border-color 0.15s, color 0.15s;
+  transition: color 0.15s;
 }
 
-nav a:hover,
+nav li:hover a,
 nav a:focus-visible {
-  border-color: var(--accent);
   color: var(--accent);
 }
 
@@ -116,3 +139,35 @@ td {
 
 th { color: var(--text); }
 td { color: var(--muted); }
+
+/* Container em volta do título (h1) */
+.cabecalho {
+  padding: 1.25rem 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+}
+
+.cabecalho h1 { margin: 0; }
+.cabecalho p { margin: 0.5rem 0 0; }
+
+/* Botão de modo claro / escuro */
+.tema-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.4rem 0.8rem;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.tema-btn:hover,
+.tema-btn:focus-visible {
+  border-color: var(--accent);
+}
