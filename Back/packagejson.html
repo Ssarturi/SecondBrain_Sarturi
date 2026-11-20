@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Brain Sarturi</title>
+    <link rel="stylesheet" href="../css/inicial.css">
+</head>
+
+<body>
+    <a class="voltar" href="../index.html">← Voltar</a>
+
+    <h1>package.json</h1>
+
+    <div class="container">
+        <h2>O que ele é?</h2>
+        <p>É a "lista de compras" do projeto (quais pacotes ele precisa) e também a sua carteira de identidade: nome,
+            versão, arquivo principal e atalhos de comandos.</p>
+
+        <h2>Por que ele existe?</h2>
+        <p>Para ter um lugar padrão onde o NPM, pessoas e ferramentas descobrem o que é o projeto e do que ele
+            precisa. Assim não é preciso enviar a node_modules: quem baixar o projeto roda <code>npm install</code> e
+            o NPM lê a lista e baixa tudo.</p>
+
+        <h2>Como criar</h2>
+<pre><code>npm init -y   // init = inicie um projeto aqui / -y = use as respostas padrão</code></pre>
+
+        <h2>Exemplo (meu projeto de prática)</h2>
+<pre><code>{
+  "name": "package",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",
+    "start": "node index.js"
+  }
+}</code></pre>
+        <table>
+            <tr>
+                <th>Campo</th>
+                <th>O que é</th>
+            </tr>
+            <tr>
+                <td><code>name</code></td>
+                <td>O nome do projeto (vem do nome da pasta)</td>
+            </tr>
+            <tr>
+                <td><code>version</code></td>
+                <td>A versão do meu projeto</td>
+            </tr>
+            <tr>
+                <td><code>main</code></td>
+                <td>O arquivo principal, por onde o projeto começa</td>
+            </tr>
+            <tr>
+                <td><code>scripts</code></td>
+                <td>Atalhos de comandos, rodados com <code>npm run apelido</code></td>
+            </tr>
+            <tr>
+                <td><code>dependencies</code></td>
+                <td>Os pacotes que o projeto precisa (o npm install escreve aqui sozinho)</td>
+            </tr>
+        </table>
+
+        <h2>Scripts</h2>
+        <p>O valor de um script é exatamente o comando que eu digitaria no terminal. Ele precisa ficar dentro das
+            chaves de <code>"scripts"</code>, e os itens são separados por vírgula (o último não leva vírgula). Com
+            <code>"start": "node index.js"</code>, rodo o projeto com <code>npm run start</code> (ou só
+            <code>npm start</code>).</p>
+
+        <h2>Versão do projeto x versão da dependência</h2>
+        <p><code>"version"</code> é a versão do meu projeto, que eu mesma mudo ao lançar atualizações.
+            <code>"^1.6.0"</code> nas dependências é a versão do pacote de outra pessoa que meu projeto usa (o
+            <code>^</code> aceita atualizações compatíveis).</p>
+
+        <h2>Rodando um projeto baixado</h2>
+<pre><code>npm install     // 1º: baixa tudo da lista (recria a node_modules)
+npm run start   // 2º: roda o projeto</code></pre>
+
+        <h2>Lembrete</h2>
+        <p><code>command not found</code> no terminal = não existe programa com esse nome. Primeiro, conferir se o
+            comando foi digitado certo.</p>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Brain Sarturi</title>
+    <link rel="stylesheet" href="../css/inicial.css">
+</head>
+
+<body>
+    <a class="voltar" href="../index.html">← Voltar</a>
+
+    <h1>Módulos e require()</h1>
+
+    <div class="container">
+        <h2>O que é um módulo?</h2>
+        <p>Um arquivo JavaScript que eu uso dentro de outro arquivo. Cada arquivo .js é um módulo.</p>
+
+        <h2>Por que existe?</h2>
+        <p>Para dividir um código gigante em partes pequenas, por assunto, fáceis de achar. Assim, mexer em uma parte
+            também não quebra as outras.</p>
+
+        <h2>Os 3 tipos de módulo no Node</h2>
+        <table>
+            <tr>
+                <th>Tipo</th>
+                <th>Exemplo</th>
+            </tr>
+            <tr>
+                <td>Meus próprios arquivos</td>
+                <td>Arquivos que eu crio</td>
+            </tr>
+            <tr>
+                <td>Já vêm no Node</td>
+                <td><code>os</code>, <code>fs</code> (lê arquivos do PC)</td>
+            </tr>
+            <tr>
+                <td>Pacotes do NPM (dependências)</td>
+                <td><code>cowsay</code>, <code>dayjs</code></td>
+            </tr>
+        </table>
+        <p>Toda dependência é um módulo, mas nem todo módulo é uma dependência (dependência é o que vem de fora, pelo
+            NPM, e fica listado no package.json).</p>
+
+        <h2>O que é o require()?</h2>
+        <p>Uma função que pega um módulo e entrega para eu usar no arquivo. Instalar um pacote só baixa ele; para
+            usar no código, preciso do require(). O texto entre aspas é o nome do módulo.</p>
+
+        <h2>Exemplo: módulo que já vem no Node</h2>
+<pre><code>const os = require("os");
+
+console.log("Sistema:", os.platform());
+console.log("Memória livre:", os.freemem());</code></pre>
+        <p><code>require("os")</code> guarda o módulo na constante <code>os</code>; depois uso as funções que ele
+            oferece, como <code>os.platform()</code>.</p>
+
+        <h2>Exemplo: pacote do NPM</h2>
+<pre><code>const dayjs = require("dayjs");
+
+console.log("Hoje é", dayjs().format("DD/MM/YYYY"));</code></pre>
+        <p>O <code>dayjs</code> sozinho é uma função: <code>dayjs()</code> cria a data de agora (sem passar nada) e é
+            essa data que tem o <code>.format()</code>. O texto dentro do format é o modelo da data (DD = dia,
+            MM = mês, YYYY = ano).</p>
+
+        <h2>Lembrete</h2>
+        <p>O require() só traz o módulo. O que cada módulo oferece, descubro lendo a documentação dele (todo pacote
+            do NPM tem uma).</p>
+    </div>
+
+</body>
+
+</html>

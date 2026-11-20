@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Brain Sarturi</title>
+    <link rel="stylesheet" href="../css/inicial.css">
+</head>
+
+<body>
+    <a class="voltar" href="../index.html">← Voltar</a>
+
+    <h1>NPM</h1>
+
+    <div class="container">
+        <h2>O que ele é?</h2>
+        <p>NPM (Node Package Manager) é o gerenciador de pacotes que vem junto com o Node. Um pacote é um código
+            pronto, escrito por outra pessoa, que eu baixo e uso no meu projeto. É como uma loja de aplicativos, só
+            que de pedaços de código (os pacotes ficam no site npmjs.com).</p>
+
+        <h2>Por que ele existe?</h2>
+        <p>Para não precisar escrever tudo do zero. Muita gente já resolveu problemas comuns (datas, servidores,
+            senhas...) e publicou o código. O NPM baixa esses pacotes com um comando, sem copiar e colar nada.</p>
+
+        <h2>Comandos</h2>
+<pre><code>npm -v               // mostra a versão do NPM
+npm install cowsay   // baixa o pacote cowsay para o projeto
+npm install          // lê o package.json e baixa tudo que o projeto precisa
+npx cowsay "Oi"      // executa um pacote (em vez de instalar)</code></pre>
+
+        <h2>Os arquivos que aparecem</h2>
+        <p>Pensando numa receita de bolo:</p>
+        <table>
+            <tr>
+                <th>Arquivo</th>
+                <th>O que é</th>
+                <th>Enviar junto com o projeto?</th>
+            </tr>
+            <tr>
+                <td><code>node_modules/</code></td>
+                <td>Os ingredientes: o código dos pacotes baixados</td>
+                <td>Não (é pesado e pode ser baixado de novo)</td>
+            </tr>
+            <tr>
+                <td><code>package.json</code></td>
+                <td>A lista de compras: o que o projeto precisa</td>
+                <td>Sim</td>
+            </tr>
+            <tr>
+                <td><code>package-lock.json</code></td>
+                <td>A nota fiscal: a versão exata de cada pacote</td>
+                <td>Sim</td>
+            </tr>
+        </table>
+
+        <h2>Por que vieram tantos pacotes?</h2>
+        <p>Pedi só o cowsay, mas vieram uns 30. É porque quem criou o cowsay também usou pacotes de outras pessoas
+            para construí-lo. O NPM baixa tudo o que ele precisa (e o que esses pacotes precisam), numa corrente.
+            Esses pacotes necessários se chamam dependências.</p>
+
+        <h2>Apagou a node_modules?</h2>
+        <p>Sem problema: rodando <code>npm install</code>, o NPM lê o package.json e o package-lock.json e recria a
+            pasta inteira com tudo que precisa para rodar.</p>
+    </div>
+
+</body>
+
+</html>

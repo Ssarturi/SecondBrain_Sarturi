@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Brain Sarturi</title>
+    <link rel="stylesheet" href="../css/inicial.css">
+</head>
+
+<body>
+    <a class="voltar" href="../index.html">← Voltar</a>
+
+    <h1>Node.js</h1>
+
+    <div class="container">
+        <h2>O que ele é?</h2>
+        <p>O Node.js é um programa instalado no computador que permite rodar JavaScript fora do navegador: no
+            terminal, em um servidor, onde eu quiser.</p>
+
+        <h2>Por que ele existe?</h2>
+        <p>Antes, o JavaScript só rodava no navegador, e para o backend era preciso aprender outra linguagem. Com o
+            Node, uso a mesma linguagem no front e no back. E como ele roda fora do navegador, pode fazer o trabalho
+            do backend: ler arquivos do computador, conversar com bancos de dados e criar servidores.</p>
+
+        <h2>Navegador x Node</h2>
+        <p>Rodando pelo Node, o JS não fica limitado ao navegador: pode acessar arquivos do PC e conversar com bancos
+            de dados (que são outros programas rodando). Em troca, no Node não existe página, então não existem
+            coisas do navegador como o <code>document</code> e o <code>alert()</code>.</p>
+
+        <h2>Como rodar um arquivo</h2>
+        <p>No terminal, dentro da pasta do arquivo:</p>
+<pre><code>node -v        // mostra a versão instalada (confirma que o Node funciona)
+node ola.js    // executa o arquivo ola.js</code></pre>
+
+        <h2>Exemplo</h2>
+<pre><code>const nome = "Sarturi";
+console.log(`Olá, ${nome}!`);
+
+const n1 = 4;
+const n2 = 6;
+const soma = n1 + n2;
+const multiplicacao = n1 * n2;
+
+console.log(soma, multiplicacao); // 10 24</code></pre>
+
+        <h2>Lembretes</h2>
+        <p>Toda variável nasce declarada: <code>const</code> quando o valor não muda, <code>let</code> quando vai
+            mudar. Sem declarar, o JS cria uma variável global escondida, o que gera bugs (e dá erro em modo
+            estrito). Template string: crases com <code>${variavel}</code> para juntar texto e variável.</p>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Brain Sarturi</title>
+    <link rel="stylesheet" href="../css/inicial.css">
+</head>
+
+<body>
+    <a class="voltar" href="../index.html">← Voltar</a>
+
+    <h1>Dependências</h1>
+
+    <div class="container">
+        <h2>O que são?</h2>
+        <p>Dependência é qualquer pacote que o meu projeto precisa para funcionar. Exemplo: o cowsay era dependência
+            do meu projeto, e o yargs era dependência do cowsay.</p>
+
+        <h2>Por que esse conceito existe?</h2>
+        <p>O projeto depende de código que não é meu. Se esse código sumir, o projeto quebra. Por isso o NPM anota
+            tudo no package.json.</p>
+
+        <h2>Os dois tipos</h2>
+        <table>
+            <tr>
+                <th>Tipo</th>
+                <th>Para que serve</th>
+                <th>Exemplo</th>
+            </tr>
+            <tr>
+                <td><code>dependencies</code></td>
+                <td>O projeto precisa delas para rodar</td>
+                <td>dayjs (formata datas), pacote de matemática</td>
+            </tr>
+            <tr>
+                <td><code>devDependencies</code></td>
+                <td>Só são usadas enquanto eu programo</td>
+                <td>nodemon (reinicia o programa ao salvar), ferramenta de testes</td>
+            </tr>
+        </table>
+        <p>Regra para decidir: se eu publicar o programa sem esse pacote, ele ainda funciona para quem usar? Se
+            funciona, é devDependency.</p>
+
+        <h2>Comandos</h2>
+<pre><code>npm install dayjs                // vai para "dependencies"
+npm install nodemon --save-dev   // vai para "devDependencies" (--save-dev = só para desenvolvimento)
+npm uninstall dayjs              // remove a pasta da node_modules e a linha do package.json</code></pre>
+
+        <h2>Como fica no package.json</h2>
+<pre><code>"dependencies": {
+  "dayjs": "^1.11.23"
+},
+"devDependencies": {
+  "nodemon": "^3.1.14"
+}</code></pre>
+    </div>
+
+</body>
+
+</html>
