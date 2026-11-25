@@ -4,29 +4,29 @@
   --card: #ffffff;
   --text: #222;
   --muted: #666;
-  --accent: #4f46e5;
+  --accent: #9a7412;   /* dourado escuro (lê bem no fundo claro) */
   --border: #e5e5e5;
 }
 
 /* Tema escuro escolhido no botão */
 :root[data-theme="dark"] {
-  --bg: #111;
-  --card: #1a1a1a;
-  --text: #eee;
-  --muted: #999;
-  --accent: #a5b4fc;
-  --border: #2a2a2a;
+  --bg: #0a0907;
+  --card: #14120d;
+  --text: #f7f1e3;
+  --muted: #a89f8a;
+  --accent: #d4af37;   /* dourado */
+  --border: #2a2519;
 }
 
 /* Sem escolha no botão: segue o tema do sistema */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #111;
-    --card: #1a1a1a;
-    --text: #eee;
-    --muted: #999;
-    --accent: #a5b4fc;
-    --border: #2a2a2a;
+    --bg: #0a0907;
+    --card: #14120d;
+    --text: #f7f1e3;
+    --muted: #a89f8a;
+    --accent: #d4af37;
+    --border: #2a2519;
   }
 }
 
@@ -171,3 +171,60 @@ td { color: var(--muted); }
 .tema-btn:focus-visible {
   border-color: var(--accent);
 }
+
+/* =============================================================
+   ANIMAÇÕES DAS PÁGINAS DE ANOTAÇÃO
+   ============================================================= */
+
+/* O conteúdo "sobe" e aparece aos poucos quando a página abre */
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.cabecalho { animation: aparecer 0.5s ease-out both; }
+
+/* Cada filho do .container entra um pouquinho depois do anterior */
+.container > * { animation: aparecer 0.5s ease-out both; }
+.container > :nth-child(1) { animation-delay: 0.10s; }
+.container > :nth-child(2) { animation-delay: 0.15s; }
+.container > :nth-child(3) { animation-delay: 0.20s; }
+.container > :nth-child(4) { animation-delay: 0.25s; }
+.container > :nth-child(5) { animation-delay: 0.30s; }
+.container > :nth-child(6) { animation-delay: 0.35s; }
+.container > :nth-child(n+7) { animation-delay: 0.40s; }
+
+/* Título da página com serifa e degradê dourado, igual ao do cérebro */
+.cabecalho h1 {
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  font-size: 2.6rem;
+  background: linear-gradient(90deg, var(--accent), #f5d76e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Blocos de código e tabelas reagem ao mouse */
+pre, table { transition: border-color 0.2s, box-shadow 0.2s; }
+pre:hover { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); }
+
+/* =============================================================
+   MODO "DENTRO DA ABA LATERAL" (classe colocada pelo tema.js)
+   ============================================================= */
+.no-painel .voltar,
+.no-painel .tema-btn { display: none; }
+
+.no-painel body {
+  max-width: none;
+  padding: 1rem 1.25rem 2rem;
+  background: #0a0907;
+}
+
+.no-painel .cabecalho { display: none; }   /* o título já aparece no topo da aba */
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+.no-painel .container > h2:first-child { margin-top: 0.5rem; }

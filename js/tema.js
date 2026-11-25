@@ -33,8 +33,19 @@ if (salvo) {
   document.documentElement.setAttribute("data-theme", salvo);
 }
 
+// Página aberta dentro da aba lateral do cérebro (endereço termina em ?painel=1)?
+// Então usa o tema escuro (combina com o espaço) e ganha a classe "no-painel",
+// que o CSS usa para esconder o "Voltar" e o botão de tema.
+var noPainel = window.location.search.indexOf("painel") !== -1;
+if (noPainel) {
+  document.documentElement.setAttribute("data-theme", "dark");
+  document.documentElement.classList.add("no-painel");
+}
+
 // Quando o HTML terminar de carregar, o botão já existe
 document.addEventListener("DOMContentLoaded", function () {
+  if (noPainel) return; // dentro da aba não troca o tema nem salva nada
+
   aplicar(temaAtual());
 
   document.getElementById("tema-btn").addEventListener("click", function () {

@@ -4,19 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SECOND BRAIN SARTURI</title>
-    <link rel="stylesheet" href="./css/inicial.css">
-    <script src="./js/tema.js"></script>
+    <!-- Fontes do Google: Cormorant Garamond (com serifa, para o título) e Inter (para o resto) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/cerebro.css">
 </head>
 <body>
-    <button class="tema-btn" id="tema-btn" type="button" aria-label="Alternar entre modo claro e escuro">Tema</button>
-    <header class="cabecalho">
-        <h1>Second Brain</h1>
-    <p>
-        Usarei esses esquema de htmls para realizar anotações sobre conteúdos aprendidos durante minha jornada na programação!
-    </p>
+    <!-- O desenho 3D (espaço + cérebro) é colocado aqui pelo cerebro.js -->
+    <div id="cena" aria-hidden="true"></div>
+
+    <!-- Camadas de cinema por cima do espaço: nebulosa, granulado de filme e bordas escuras -->
+    <div class="nebulosa" aria-hidden="true"></div>
+    <div class="granulado" aria-hidden="true"></div>
+    <div class="vinheta" aria-hidden="true"></div>
+
+    <!-- Nomes que flutuam ao lado de cada neurônio -->
+    <div id="rotulos" aria-hidden="true"></div>
+
+    <header class="topo">
+        <span class="sobretitulo">Sarturi</span>
+        <h1>Second<br>Brain</h1>
+        <p>Usarei esses esquema de htmls para realizar anotações sobre conteúdos aprendidos durante minha jornada na programação!</p>
+        <p class="dica">Arraste para girar · role para aproximar · clique em um neurônio para abrir</p>
     </header>
-    <nav>
-        <ul>
+
+    <!-- Legenda das áreas (preenchida pelo cerebro.js) -->
+    <ul class="legenda" id="legenda"></ul>
+
+    <!-- Lista normal de links: serve de menu e de plano B se o 3D não carregar -->
+    <nav class="lista" id="lista" data-aberto="">
+        <div class="botoes">
+            <button class="lista-btn" id="proximos-btn" type="button" aria-expanded="false">✦ Próximos estudos</button>
+            <button class="lista-btn" id="lista-btn" type="button" aria-expanded="false">☰ Todas as anotações</button>
+        </div>
+        <ul class="drop" id="drop-todas">
             <li><a href="./Back/backendInicial.html">Backend</a></li>
             <li><a href="./Back/nodejs.html">Node.js</a></li>
             <li><a href="./Back/npm.html">NPM</a></li>
@@ -24,6 +46,79 @@
             <li><a href="Back/dependencias.html">Dependências</a></li>
             <li><a href="./Back/modulos.html">Módulos e require()</a></li>
         </ul>
+        <!-- Sugestões de estudo (preenchido pelo cerebro.js) -->
+        <div class="drop" id="drop-proximos"></div>
     </nav>
+
+    <!-- Aba lateral que abre ao clicar em um neurônio -->
+    <aside class="painel" id="painel" aria-hidden="true">
+        <div class="painel-topo">
+            <div>
+                <span class="painel-area" id="painel-area"></span>
+                <h2 id="painel-titulo">Anotação</h2>
+            </div>
+            <button class="painel-fechar" id="painel-fechar" type="button" aria-label="Fechar painel">✕</button>
+        </div>
+        <div class="painel-conexoes" id="painel-conexoes"></div>
+
+        <!-- Meta da anotação (aparece nas anotações que você já estudou) -->
+        <div class="meta" id="meta">
+            <label class="meta-titulo" for="meta-texto">🎯 Minha meta para este tema</label>
+            <input type="text" id="meta-texto" maxlength="140" placeholder="Ex.: conseguir fazer um exemplo sozinha" autocomplete="off">
+            <label class="meta-feito"><input type="checkbox" id="meta-feito"> Meta cumprida</label>
+        </div>
+
+        <!-- Sugestão de estudo (aparece ao clicar em um neurônio fantasma) -->
+        <div class="sugestao" id="sugestao">
+            <p class="estado" id="sugestao-estado"></p>
+            <h3>Por que estudar isso?</h3>
+            <p id="sugestao-porque"></p>
+
+            <!-- Pesquisa rápida: resumo da Wikipédia + links (preenchido pelo tutor.js) -->
+            <h3>Pesquisa rápida</h3>
+            <div class="pesquisa" id="pesquisa"></div>
+            <div class="pesquisa-links" id="pesquisa-links"></div>
+
+            <!-- Tutor de IA (tutor.js) -->
+            <h3>Estudar com o tutor</h3>
+            <div class="tutor-chave" id="tutor-chave">
+                <p>O tutor usa o Claude pela API da Anthropic. Para ligar, crie uma chave em
+                    <a href="https://platform.claude.com" target="_blank" rel="noopener">platform.claude.com</a>
+                    (em API keys) e cole aqui. Ela fica salva só neste navegador. A API é paga por uso, separada da assinatura do claude.ai.</p>
+                <form id="tutor-chave-form">
+                    <input type="password" id="tutor-chave-campo" placeholder="sk-ant-..." autocomplete="off">
+                    <button type="submit">Salvar chave</button>
+                </form>
+            </div>
+            <div class="tutor" id="tutor" hidden>
+                <div class="tutor-mensagens" id="tutor-mensagens"></div>
+                <button class="sugestao-btn" id="tutor-comecar" type="button">Começar a aula</button>
+                <form class="tutor-form" id="tutor-form" hidden>
+                    <textarea id="tutor-entrada" rows="2" placeholder="Sua resposta ou dúvida (Enter envia, Shift + Enter pula linha)"></textarea>
+                    <button id="tutor-enviar" type="submit">Enviar</button>
+                </form>
+                <p class="tutor-status" id="tutor-status" aria-live="polite"></p>
+            </div>
+
+            <div class="sugestao-acoes">
+                <button type="button" id="tutor-limpar" hidden>Recomeçar conversa</button>
+                <button type="button" id="tutor-trocar" hidden>Trocar chave</button>
+                <button type="button" id="sugestao-pedir">Copiar pedido para o Claude</button>
+            </div>
+            <p class="sugestao-aviso" id="sugestao-aviso"></p>
+        </div>
+
+        <iframe id="painel-frame" title="Conteúdo da anotação"></iframe>
+        <a class="painel-abrir" id="painel-abrir" href="#">Abrir página inteira ↗</a>
+    </aside>
+
+    <!-- 1º a biblioteca 3D, 2º o mapa das anotações, 3º o código do cérebro -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="./js/conexoes.js"></script>
+    <script src="./js/sugestoes.js"></script>
+    <!-- Biblioteca oficial da Anthropic (cria window.Anthropic) e o tutor -->
+    <script src="./js/vendor/anthropic-sdk.js"></script>
+    <script src="./js/tutor.js"></script>
+    <script src="./js/cerebro.js"></script>
 </body>
 </html>
